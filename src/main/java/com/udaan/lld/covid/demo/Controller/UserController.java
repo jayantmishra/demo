@@ -12,14 +12,14 @@ public class UserController {
 
     private UserManager userManager;
 
-    @PatchMapping("/registerUser")
+    @PostMapping("/registerUser")
     public ResponseEntity registerUser(String userName, String userNumber, String userPinCode){
 
        int userId =  userManager.create(new Character(userName, userNumber, userPinCode, false));
        return ResponseEntity.ok("{userId : " + userId);
     }
 
-    @PatchMapping("/addSymptom")
+    @PostMapping("/addSymptom")
     public ResponseEntity addSymptom(int userId, String symptom){
 
         userManager.addSymptom(userId, symptom);

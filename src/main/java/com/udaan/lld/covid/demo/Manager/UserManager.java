@@ -4,16 +4,21 @@ import com.udaan.lld.covid.demo.Exceptions.CovidTrackerException;
 import com.udaan.lld.covid.demo.Exceptions.InvalidUserException;
 import com.udaan.lld.covid.demo.Model.Character;
 import com.udaan.lld.covid.demo.Utilities.Utils;
-import org.springframework.http.ResponseEntity;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 public class UserManager implements ICharacter{
 
     public static final int MAX_ALLOWED_USER  = 10000;
     public static int currId= 0;
     Map<Integer, Character> userMap = new HashMap<>();
+    Map<String , ArrayList<Character>> userPinMap = new HashMap<>();
+    ZoneManager zoneManager;
+
+
     @Override
     public int create(Character character) throws CovidTrackerException {
         if(Utils.isAdmin(character))
@@ -21,6 +26,8 @@ public class UserManager implements ICharacter{
 
         int id = getNextUserId();
         userMap.put(id, character);
+
+
         return id;
     }
 
@@ -57,6 +64,12 @@ public class UserManager implements ICharacter{
             return newId;
     }
 
+    public Map<Integer, Character> getAllUsers(){
+        return userMap;
+    }
 
+    public Map<String , ArrayList<Character>> getAllUserPinMap(){
+        return userPinMap;
+    }
 
 }
