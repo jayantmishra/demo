@@ -21,6 +21,7 @@ public class AdminManager implements ICharacter{
             throw  new InvalidAdminException("user is not admin");
         int id = getNextAdminId();
 
+        adminMap.put(id, character);
         return id;
     }
 

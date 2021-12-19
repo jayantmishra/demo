@@ -20,8 +20,34 @@ public class UserManager implements ICharacter{
             throw new InvalidUserException("user is admin instead of user");
 
         int id = getNextUserId();
+        userMap.put(id, character);
         return id;
     }
+
+    public void addSymptom(int userId, String symptom) throws CovidTrackerException{
+        if (!userMap.containsKey(userId))
+            throw new InvalidUserException("User not present");
+
+        Character character = userMap.get(userId);
+        character.getAssessment().getSymptoms().add(symptom);
+    }
+
+    public void addTravelHistory(int userId){
+        if (!userMap.containsKey(userId))
+            throw new InvalidUserException("User not present");
+
+        Character character = userMap.get(userId);
+        character.getAssessment().setTravelHistory(true);
+    }
+
+    public void addContactHistory(int userId){
+        if (!userMap.containsKey(userId))
+            throw new InvalidUserException("User not present");
+
+        Character character = userMap.get(userId);
+        character.getAssessment().setContactWithPatient(true);
+    }
+
 
     private int getNextUserId(){
         int newId = currId+1;
@@ -30,6 +56,7 @@ public class UserManager implements ICharacter{
         else
             return newId;
     }
+
 
 
 }
